@@ -1,7 +1,23 @@
 import { Module } from '@nestjs/common';
-import { BoardModule } from './board/board.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { BoardModule } from './apis/board/board.module';
 
 @Module({
-  imports: [BoardModule],
+  imports: [
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: 'localhost',
+      port: 3306,
+      username: 'root',
+      password: 'root',
+      database: 'database',
+      entities: [
+        __dirname + '/apis/**/*.entity.*', //
+      ],
+      synchronize: true,
+    }),
+
+    BoardModule,
+  ],
 })
 export class AppModule {}
