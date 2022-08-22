@@ -20,6 +20,9 @@ export class BoardEntity {
   @Column()
   password: string;
 
+  @Column()
+  weather: string;
+
   @CreateDateColumn()
   createdAt: Date;
 

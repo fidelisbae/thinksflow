@@ -3,6 +3,8 @@ import { BoardEntity } from './entities/board.entity';
 import * as bcryptjs from 'bcryptjs';
 import { BoardRepository } from './entities/board.repository';
 import { DeleteResult } from 'typeorm';
+import axios from 'axios';
+import 'dotenv/config';
 
 @Injectable()
 export class BoardService {
@@ -28,7 +30,17 @@ export class BoardService {
 
     const hashedPassword = await bcryptjs.hash(password, 10);
 
-    return await this.boardRepository.create(title, content, hashedPassword);
+    const res = await axios({
+      url: `https://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=${process.env.API_KEY}`,
+    });
+    const weather = res.data.weather[0].main;
+
+    return await this.boardRepository.create(
+      title,
+      content,
+      hashedPassword,
+      weather,
+    );
   }
 
   async fetch(): Promise<Partial<BoardEntity[]>> {

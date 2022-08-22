@@ -1,4 +1,5 @@
 import { Body, Controller, Delete, Get, Post, Put } from '@nestjs/common';
+
 import { BoardService } from './board.service';
 import {
   CreateBoardDto,

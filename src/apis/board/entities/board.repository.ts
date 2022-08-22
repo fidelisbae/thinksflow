@@ -14,11 +14,13 @@ export class BoardRepository {
     title: string,
     content: string,
     hashedPassword: string,
+    weather: string,
   ): Promise<BoardEntity> {
     return await this.boardRepository.save({
       title: title,
       content: content,
       password: hashedPassword,
+      weather: weather,
     });
   }
 
@@ -30,6 +32,7 @@ export class BoardRepository {
         id: boards[i].id,
         title: boards[i].title,
         content: boards[i].content,
+        weather: boards[i].weather,
       });
     }
     return result;
